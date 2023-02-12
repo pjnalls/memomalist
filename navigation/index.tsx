@@ -88,18 +88,20 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Deck"
-        children={(router) => DeckTabScreen(deck, setDeck)}
+        children={() => DeckTabScreen(deck, setDeck)}
         options={{
-          title: "Queue",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Decks",
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="Queue"
-        children={(router) => QueueTabScreen(deck)}
+        children={() => QueueTabScreen(deck)}
         options={{
           title: "Queue",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="long-arrow-right" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>

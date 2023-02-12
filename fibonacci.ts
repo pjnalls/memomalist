@@ -1,6 +1,6 @@
 // https://stackoverflow.com/a/69044541
 
-function fibonacci(n: number): number {
+export function fibonacci(n: number): number {
   const map = new Map<number, number>([[0, 0]]);
   function fib(n: number): number {
     if (map.has(n)) return map.get(n) as number;

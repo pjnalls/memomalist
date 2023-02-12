@@ -1,4 +1,3 @@
-import * as WebBrowser from "expo-web-browser";
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../constants/Colors";
@@ -16,39 +15,45 @@ export default function Decks({
 }) {
   return (
     <View>
-      <View style={styles.getStartedContainer}>
+      <View style={styles.container}>
         <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
-          Current Deck:
-        </Text>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
+          style={styles.title}
+          lightColor="rgba(0,0,0,0)"
+          darkColor="rgba(255,255,255,1)"
         >
           {deck.name}
         </Text>
+        <View
+          style={styles.smSeparator}
+          lightColor="#eee"
+          darkColor="rgba(255,255,255,0.1)"
+        />
         <Text
-          style={styles.getStartedText}
+          style={styles.text}
           lightColor="rgba(0,0,0,0.8)"
           darkColor="rgba(255,255,255,0.8)"
         >
           {deck.description}
         </Text>
       </View>
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
       {decks.map((d, index) => (
         <View key={`dexk-${d._id}-${index}`} style={styles.helpContainer}>
           <TouchableOpacity
             onPress={() => handleDeckSelect(d, setDeck)}
             style={styles.helpLink}
           >
-            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+            <Text style={styles.itemTitle} lightColor={Colors.light.tint}>
               {d.name}
             </Text>
-            <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+            <Text
+              lightColor="rgba(0,0,0,0.8)"
+              darkColor="rgba(255,255,255,0.8)"
+            >
               {d.description}
             </Text>
           </TouchableOpacity>
@@ -63,14 +68,33 @@ function handleDeckSelect(deck: Deck, setDeck: any) {
 }
 
 const styles = StyleSheet.create({
-  getStartedContainer: {
+  container: {
     alignItems: "center",
     marginHorizontal: 50,
   },
-  getStartedText: {
+  text: {
     fontSize: 17,
     lineHeight: 24,
     textAlign: "center",
+  },
+  title: {
+    fontSize: 17,
+    lineHeight: 24,
+    textAlign: "center",
+    fontWeight: "500",
+  },
+  itemTitle: {
+    fontWeight: "500",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+  smSeparator: {
+    marginVertical: 6.67,
+    height: 1,
+    width: "80%",
   },
   helpContainer: {
     marginTop: 15,
@@ -79,8 +103,5 @@ const styles = StyleSheet.create({
   },
   helpLink: {
     paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
   },
 });

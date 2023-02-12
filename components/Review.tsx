@@ -2,61 +2,74 @@ import { useState } from "react";
 import { Button, StyleSheet } from "react-native";
 
 import { ONE_DAY_IN_MILLISECONDS, system } from "../data/Queue.data";
-import { Card } from "../types";
+import { fibonacci } from "../fibonacci";
 import { Text, View } from "./Themed";
+import { Card } from "../types";
 
 export default function Review(props: { queue: Card[] }) {
   const { queue } = props;
   const [display, setDisplay] = useState(false);
-  const [currentCard, setCurrentCard] = useState(queue.pop());
+  const [currentCard, setCurrentCard] = useState(queue[queue.length - 1]);
 
   if (currentCard && currentCard.days <= 0) {
     const { front, back } = currentCard;
     return (
       <View>
-        <View style={styles.getStartedContainer}>
+        <View style={styles.container}>
           <Text
-            style={styles.getStartedText}
-            lightColor="rgba(0,0,0,0.8)"
-            darkColor="rgba(255,255,255,0.8)"
+            style={styles.text}
+            lightColor="rgba(0,0,0,1)"
+            darkColor="rgba(255,255,255,1)"
           >
             {front}
           </Text>
         </View>
-        <View style={styles.getStartedContainer}>
+        <View style={styles.container}>
+          <View
+            style={styles.separator}
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.8)"
+          />
           {display ? (
             <>
               <Text
-                style={styles.getStartedText}
-                lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)"
+                style={styles.text}
+                lightColor="rgba(0,0,0,1)"
+                darkColor="rgba(255,255,255,1)"
               >
                 {back}
               </Text>
-              <Button
-                title="Easy"
-                onPress={() =>
-                  review(5, currentCard._id, queue, setCurrentCard, setDisplay)
-                }
+              <View
+                style={styles.btnSeparator}
+                lightColor="rgba(255,255,255,0)"
+                darkColor="rgba(255,255,255,0)"
               />
-              <Button
-                title="Okay"
-                onPress={() =>
-                  review(3, currentCard._id, queue, setCurrentCard, setDisplay)
-                }
-              />
-              <Button
-                title="Hard"
-                onPress={() =>
-                  review(1, currentCard._id, queue, setCurrentCard, setDisplay)
-                }
-              />
-              <Button
-                title="Again"
-                onPress={() =>
-                  review(0, currentCard._id, queue, setCurrentCard, setDisplay)
-                }
-              />
+              <View style={styles.buttonRow}>
+                <Button
+                  title="Easy"
+                  onPress={() =>
+                    review(5, currentCard, queue, setCurrentCard, setDisplay)
+                  }
+                />
+                <Button
+                  title="Okay"
+                  onPress={() =>
+                    review(3, currentCard, queue, setCurrentCard, setDisplay)
+                  }
+                />
+                <Button
+                  title="Hard"
+                  onPress={() =>
+                    review(1, currentCard, queue, setCurrentCard, setDisplay)
+                  }
+                />
+                <Button
+                  title="Again"
+                  onPress={() =>
+                    review(0, currentCard, queue, setCurrentCard, setDisplay)
+                  }
+                />
+              </View>
             </>
           ) : (
             <Button title="Answer" onPress={() => setDisplay(true)} />
@@ -67,9 +80,9 @@ export default function Review(props: { queue: Card[] }) {
   } else {
     return (
       <View>
-        <View style={styles.getStartedContainer}>
+        <View style={styles.container}>
           <Text
-            style={styles.getStartedText}
+            style={styles.text}
             lightColor="rgba(0,0,0,0.8)"
             darkColor="rgba(255,255,255,0.8)"
           >
@@ -83,21 +96,23 @@ export default function Review(props: { queue: Card[] }) {
 
 const review = (
   n: number,
-  currentIndex: number,
+  currentCard: Card,
   queue: Card[],
   setCurrentCard: any,
   setDisplay: any
 ) => {
+  const currentIndex = queue.findIndex((card) => card._id === currentCard._id);
   const days = updateLastReviewedDate(currentIndex, queue);
+
   if (days <= 0) {
     setDays(n, currentIndex, queue);
     setDisplay(false);
-    setCurrentCard(() => queue.pop());
+    setCurrentCard(() => queue[currentCard._id - 1]);
   }
 };
 
 const setDays = (m: number, i: number, queue: Card[]) =>
-  (queue[i].days *= Math.round(fibonacci(m)) * 0.333);
+  (queue[i].days *= Math.round(fibonacci(m) * 0.333));
 
 const updateLastReviewedDate = (i: number, queue: Card[]) => {
   system.now = Date.now();
@@ -108,24 +123,30 @@ const updateLastReviewedDate = (i: number, queue: Card[]) => {
 };
 
 const styles = StyleSheet.create({
-  getStartedContainer: {
+  buttonRow: {
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    width: "100%",
+  },
+  container: {
+    marginTop: 33.333,
     alignItems: "center",
     marginHorizontal: 50,
   },
-  getStartedText: {
-    fontSize: 17,
+  text: {
+    fontSize: 24,
     lineHeight: 24,
     textAlign: "center",
   },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
+  separator: {
+    marginVertical: 60,
+    height: 1,
+    width: "80%",
   },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
+  btnSeparator: {
+    marginVertical: 47.5,
+    height: 1,
+    width: "80%",
   },
 });
