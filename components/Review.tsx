@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { Button, StyleSheet } from "react-native";
+import { Button, ColorSchemeName, StyleSheet } from "react-native";
 
 import { ONE_DAY_IN_MILLISECONDS, system } from "../data/Queue.data";
 import { fibonacci } from "../fibonacci";
+import useColorScheme from "../hooks/useColorScheme";
 import { Text, View } from "./Themed";
 import { Card } from "../types";
+import Colors from "../constants/Colors";
 
 export default function Review(props: { queue: Card[] }) {
   const { queue } = props;
   const [display, setDisplay] = useState(false);
   const [currentCard, setCurrentCard] = useState(queue[queue.length - 1]);
+  const colorScheme = useColorScheme();
 
   if (currentCard && currentCard.days <= 0) {
     const { front, back } = currentCard;
@@ -46,24 +49,29 @@ export default function Review(props: { queue: Card[] }) {
               />
               <View style={styles.buttonRow}>
                 <Button
+                  color={Colors[colorScheme].easy}
                   title="Easy"
                   onPress={() =>
                     review(5, currentCard, queue, setCurrentCard, setDisplay)
                   }
                 />
                 <Button
+                  color={Colors[colorScheme].okay}
+                  
                   title="Okay"
                   onPress={() =>
                     review(3, currentCard, queue, setCurrentCard, setDisplay)
                   }
                 />
                 <Button
+                  color={Colors[colorScheme].hard}
                   title="Hard"
                   onPress={() =>
                     review(1, currentCard, queue, setCurrentCard, setDisplay)
                   }
                 />
                 <Button
+                  color={Colors[colorScheme].again}
                   title="Again"
                   onPress={() =>
                     review(0, currentCard, queue, setCurrentCard, setDisplay)
