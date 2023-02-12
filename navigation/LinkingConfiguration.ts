@@ -4,31 +4,33 @@
  * https://reactnavigation.org/docs/configuring-links
  */
 
-import { LinkingOptions } from '@react-navigation/native';
-import * as Linking from 'expo-linking';
+import { LinkingOptions } from "@react-navigation/native";
+import * as Linking from "expo-linking";
 
-import { RootStackParamList } from '../types';
+import { RootStackParamList } from "../types";
 
 const linking: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.createURL('/')],
+  prefixes: [
+    "memomalist://navigation/, https://snack.expo.dev/@pjnalls/github.com-pjnalls-memomalist/navigation/",
+  ],
   config: {
     screens: {
       Root: {
         screens: {
           Deck: {
             screens: {
-              DeckTabScreen: 'one',
+              DeckTabScreen: "one",
             },
           },
           Queue: {
             screens: {
-              QueueTabScreen: 'two',
+              QueueTabScreen: "two",
             },
           },
         },
       },
-      Modal: 'modal',
-      NotFound: '*',
+      Modal: "modal",
+      NotFound: "*",
     },
   },
 };

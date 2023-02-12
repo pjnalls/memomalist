@@ -17,7 +17,7 @@ export default function Review(props: { queue: Card[] }) {
   if (currentCard && currentCard.days <= 0) {
     const { front, back } = currentCard;
     return (
-      <View>
+      <View style={{ width: "100%" }}>
         <View style={styles.container}>
           <Text
             style={styles.text}
@@ -57,7 +57,6 @@ export default function Review(props: { queue: Card[] }) {
                 />
                 <Button
                   color={Colors[colorScheme].okay}
-                  
                   title="Okay"
                   onPress={() =>
                     review(3, currentCard, queue, setCurrentCard, setDisplay)
@@ -80,7 +79,21 @@ export default function Review(props: { queue: Card[] }) {
               </View>
             </>
           ) : (
-            <Button title="Answer" onPress={() => setDisplay(true)} />
+            <>
+              <Text
+                style={styles.text}
+                lightColor="rgba(0,0,0,1)"
+                darkColor="rgba(255,255,255,1)"
+              >
+                {" "}
+              </Text>
+              <View
+                style={styles.btnSeparator}
+                lightColor="rgba(255,255,255,0)"
+                darkColor="rgba(255,255,255,0)"
+              />
+              <Button title="Answer" onPress={() => setDisplay(true)} />
+            </>
           )}
         </View>
       </View>

@@ -1,6 +1,9 @@
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 import { Deck } from "../types";
 import { Text, View } from "./Themed";
 
@@ -13,50 +16,48 @@ export default function Decks({
   decks: Deck[];
   setDeck: any;
 }) {
+  const colorScheme = useColorScheme();
+  useEffect(() => setDeck(() => ({ ...deck })), [setDeck]);
+
   return (
     <View>
-      <View style={styles.container}>
-        <Text
-          style={styles.title}
-          lightColor="rgba(0,0,0,0)"
-          darkColor="rgba(255,255,255,1)"
-        >
-          {deck.name}
-        </Text>
-        <View
-          style={styles.smSeparator}
-          lightColor="#eee"
-          darkColor="rgba(255,255,255,0.1)"
-        />
-        <Text
-          style={styles.text}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
-          {deck.description}
-        </Text>
-      </View>
+      <View style={styles.container}></View>
       <View
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
       {decks.map((d, index) => (
-        <View key={`dexk-${d._id}-${index}`} style={styles.helpContainer}>
-          <TouchableOpacity
-            onPress={() => handleDeckSelect(d, setDeck)}
-            style={styles.helpLink}
-          >
-            <Text style={styles.itemTitle} lightColor={Colors.light.tint}>
-              {d.name}
-            </Text>
-            <Text
-              lightColor="rgba(0,0,0,0.8)"
-              darkColor="rgba(255,255,255,0.8)"
+        <View key={`deck-${d._id}-${index}`} style={styles.helpContainer}>
+          <View style={{ marginRight: 17 }}>
+            <TouchableOpacity onPress={() => handleDeckSelect(d, setDeck)}>
+              <TabBarIcon
+                name="sticky-note"
+                color={
+                  deck._id === index
+                    ? Colors[colorScheme].tabIconSelected
+                    : Colors[colorScheme].tabIconDefault
+                }
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View>
+            <TouchableOpacity
+              onPress={() => handleDeckSelect(d, setDeck)}
+              style={styles.helpLink}
             >
-              {d.description}
-            </Text>
-          </TouchableOpacity>
+              <Text style={styles.itemTitle} lightColor={Colors.light.tint}>
+                {d.name}
+              </Text>
+              <Text
+                lightColor="rgba(0,0,0,0.8)"
+                darkColor="rgba(255,255,255,0.8)"
+              >
+                {d.description}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ))}
     </View>
@@ -91,17 +92,23 @@ const styles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
-  smSeparator: {
-    marginVertical: 6.67,
-    height: 1,
-    width: "80%",
-  },
   helpContainer: {
+    flexDirection: "row",
+    width: "90%",
     marginTop: 15,
-    marginHorizontal: 20,
     alignItems: "center",
   },
   helpLink: {
     paddingVertical: 15,
   },
 });
+
+/**
+ * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+ */
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color: string;
+}) {
+  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+}
