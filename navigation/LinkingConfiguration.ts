@@ -19,7 +19,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         screens: {
           Deck: {
             screens: {
-              DeckTabScreen: "one",
+              DeckTabScreen: "*",
             },
           },
           Queue: {
@@ -30,7 +30,6 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Modal: "modal",
-      NotFound: "*",
     },
   },
 };

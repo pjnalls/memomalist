@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
+    paddingTop: 36,
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
   },
   title: {
     fontSize: 20,
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     width: "80%",
   },
   separator: {
-    marginVertical: 30,
+    marginVertical: 24,
     height: 1,
     width: "80%",
   },

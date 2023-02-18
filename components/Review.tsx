@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ColorSchemeName, StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 
 import { ONE_DAY_IN_MILLISECONDS, system } from "../data/Queue.data";
 import { fibonacci } from "../fibonacci";
