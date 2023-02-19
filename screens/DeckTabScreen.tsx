@@ -1,4 +1,4 @@
-import React, { FC, SetStateAction } from "react";
+import React, { FC } from "react";
 import { ScrollView } from "react-native";
 import { Decks } from "../components/Decks";
 import { Text, View } from "../components/Themed";

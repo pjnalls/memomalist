@@ -1,6 +1,5 @@
-import React, { FC, SetStateAction, useEffect } from "react";
+import React, { FC } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -11,7 +10,7 @@ import { TabBarIcon } from "../shared/TabBarIcon.util";
 export const Decks: FC<{
   deck: Deck;
   decks: Deck[];
-  setDeck: React.Dispatch<React.SetStateAction<Deck>>
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
 }> = ({
   deck,
   decks,
@@ -19,7 +18,7 @@ export const Decks: FC<{
 }: {
   deck: Deck;
   decks: Deck[];
-  setDeck: React.Dispatch<React.SetStateAction<Deck>>
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
 }) => {
   const colorScheme = useColorScheme();
 

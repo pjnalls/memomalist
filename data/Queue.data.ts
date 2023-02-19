@@ -1,4 +1,4 @@
-import { Card, System } from "../types";
+import { System } from "../types";
 
 export const system: System = {
   /** TODO: Get the last time decks were reviewed. */
