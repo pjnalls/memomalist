@@ -7,12 +7,10 @@ import { decks } from "../data/Deck.data";
 import useColorScheme from "../hooks/useColorScheme";
 import { TabBarIcon } from "../shared/TabBarIcon.util";
 import { styles } from "../shared/Tab.styles";
-import { Deck } from "../types";
+import { DeckTabProps } from "../types";
 
-export const DeckTabScreen: FC<{
-  deck: Deck;
-  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
-}> = ({ deck, setDeck }) => {
+export const DeckTabScreen: FC<DeckTabProps> = (props: DeckTabProps) => {
+  const { deck, setDeck } = props;
   const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>

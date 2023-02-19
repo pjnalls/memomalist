@@ -25,6 +25,17 @@ export type Deck = {
   cards: Card[];
 };
 
+export type DecksProps = {
+  deck: Deck;
+  decks: Deck[];
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
+};
+
+export type DeckTabProps = {
+  deck: Deck;
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
+};
+
 declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
@@ -54,4 +65,8 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 export type System = {
   lastReviewed: number;
   now: number;
+};
+
+export type QueueProps = {
+  queue: Card[];
 };

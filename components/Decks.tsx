@@ -3,25 +3,13 @@ import { StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import { Deck } from "../types";
+import { Deck, DecksProps } from "../types";
 import { Text, View } from "./Themed";
 import { TabBarIcon } from "../shared/TabBarIcon.util";
 
-export const Decks: FC<{
-  deck: Deck;
-  decks: Deck[];
-  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
-}> = ({
-  deck,
-  decks,
-  setDeck,
-}: {
-  deck: Deck;
-  decks: Deck[];
-  setDeck: React.Dispatch<React.SetStateAction<Deck>>;
-}) => {
+export const Decks: FC<DecksProps> = (props: DecksProps) => {
+  const { deck, decks, setDeck } = props;
   const colorScheme = useColorScheme();
-
   return (
     <View>
       <View style={styles.container}></View>

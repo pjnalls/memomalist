@@ -5,10 +5,10 @@ import { ONE_DAY_IN_MILLISECONDS, system } from "../data/Queue.data";
 import { fibonacci } from "../fibonacci";
 import useColorScheme from "../hooks/useColorScheme";
 import { Text, View } from "./Themed";
-import { Card } from "../types";
+import { Card, QueueProps } from "../types";
 import Colors from "../constants/Colors";
 
-export const Review: FC<{ queue: Card[] }> = (props: { queue: Card[] }) => {
+export const Review: FC<QueueProps> = (props: QueueProps) => {
   const { queue } = props;
   const [display, setDisplay] = useState(false);
   const [currentCard, setCurrentCard] = useState(queue[queue.length - 1]);
