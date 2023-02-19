@@ -15,32 +15,25 @@ import { ColorSchemeName } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
-import NotFoundScreen from "../screens/NotFoundScreen";
-import DeckTabScreen from "../screens/DeckTabScreen";
-import QueueTabScreen from "../screens/QueueTabScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-} from "../types";
+import { ModalScreen } from "../screens/ModalScreen";
+import { NotFoundScreen } from "../screens/NotFoundScreen";
+import { DeckTabScreen } from "../screens/DeckTabScreen";
+import { QueueTabScreen } from "../screens/QueueTabScreen";
+import { RootStackParamList, RootTabParamList } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import { decks } from "../data/Deck.data";
 import { TabBarIcon } from "../shared/TabBarIcon.util";
 
-export default function Navigation({
-  colorScheme,
-}: {
+export const Navigation: React.FC<{
   colorScheme: ColorSchemeName;
-}) {
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
-      <RootNavigator />
-    </NavigationContainer>
-  );
-}
+}> = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
+  <NavigationContainer
+    linking={LinkingConfiguration}
+    theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+  >
+    <RootNavigator />
+  </NavigationContainer>
+);
 
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
@@ -87,7 +80,7 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Deck"
-        children={() => DeckTabScreen(deck, setDeck)}
+        children={() => DeckTabScreen({ deck, setDeck })}
         options={{
           title: "Decks",
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,

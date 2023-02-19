@@ -1,22 +1,26 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
+import React, { FC, SetStateAction, useEffect } from "react";
+import { StyleSheet, TouchableOpacity } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
 
-import Colors from '../constants/Colors';
-import useColorScheme from '../hooks/useColorScheme';
-import { Deck } from '../types';
-import { Text, View } from './Themed';
-import { TabBarIcon } from '../shared/TabBarIcon.util';
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
+import { Deck } from "../types";
+import { Text, View } from "./Themed";
+import { TabBarIcon } from "../shared/TabBarIcon.util";
 
-export default function Decks({
+export const Decks: FC<{
+  deck: Deck;
+  decks: Deck[];
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>
+}> = ({
   deck,
   decks,
   setDeck,
 }: {
   deck: Deck;
   decks: Deck[];
-  setDeck: any;
-}) {
+  setDeck: React.Dispatch<React.SetStateAction<Deck>>
+}) => {
   const colorScheme = useColorScheme();
 
   return (
@@ -44,11 +48,13 @@ export default function Decks({
 
           <View
             style={{
-              width: '80%',
-            }}>
+              width: "80%",
+            }}
+          >
             <TouchableOpacity
               onPress={() => handleDeckSelect(d, setDeck)}
-              style={styles.helpLink}>
+              style={styles.helpLink}
+            >
               <Text
                 style={{
                   ...styles.itemTitle,
@@ -56,12 +62,14 @@ export default function Decks({
                     deck._id === index
                       ? Colors[colorScheme].tabIconSelected
                       : Colors[colorScheme].tabIconDefault,
-                }}>
+                }}
+              >
                 {d.name}
               </Text>
               <Text
                 lightColor="rgba(0,0,0,0.8)"
-                darkColor="rgba(255,255,255,0.8)">
+                darkColor="rgba(255,255,255,0.8)"
+              >
                 {d.description}
               </Text>
             </TouchableOpacity>
@@ -70,7 +78,7 @@ export default function Decks({
       ))}
     </View>
   );
-}
+};
 
 function handleDeckSelect(deck: Deck, setDeck: any) {
   setDeck(() => ({ ...deck }));
@@ -78,24 +86,24 @@ function handleDeckSelect(deck: Deck, setDeck: any) {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    alignItems: "center",
     marginHorizontal: 50,
   },
   itemTitle: {
-    fontWeight: '500',
+    fontWeight: "500",
   },
   separator: {
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 30,
     height: 1,
-    width: '80%',
+    width: "80%",
   },
   helpContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 15,
-    alignItems: 'center',
-    marginHorizontal: 'auto',
-    width: '90%',
+    alignItems: "center",
+    marginHorizontal: "auto",
+    width: "90%",
   },
   helpLink: {
     paddingVertical: 15,

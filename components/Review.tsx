@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Button, StyleSheet } from "react-native";
 
 import { ONE_DAY_IN_MILLISECONDS, system } from "../data/Queue.data";
@@ -8,7 +8,7 @@ import { Text, View } from "./Themed";
 import { Card } from "../types";
 import Colors from "../constants/Colors";
 
-export default function Review(props: { queue: Card[] }) {
+export const Review: FC<{ queue: Card[] }> = (props: { queue: Card[] }) => {
   const { queue } = props;
   const [display, setDisplay] = useState(false);
   const [currentCard, setCurrentCard] = useState(queue[queue.length - 1]);
@@ -113,7 +113,7 @@ export default function Review(props: { queue: Card[] }) {
       </View>
     );
   }
-}
+};
 
 const review = (
   n: number,
